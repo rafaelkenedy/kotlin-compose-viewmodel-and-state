@@ -23,6 +23,10 @@ class GameViewModel : ViewModel() {
 
     private lateinit var currentWord: String
 
+    init {
+        resetGame()
+    }
+
     private fun shuffleCurrentWord(word: String): String {
         val tempWord = word.toCharArray()
 
@@ -67,13 +71,11 @@ class GameViewModel : ViewModel() {
     }
 
     private fun updateGameState(updatedScore: Int) {
-
         if (usedWords.size == MAX_NO_OF_WORDS) {
             _uiState.update { currentState ->
                 currentState.copy(
                     isGuessedWordWrong = false,
                     score = updatedScore,
-                    currentWordCount = currentState.currentWordCount.inc(),
                     isGameOver = true
                 )
             }
@@ -95,7 +97,5 @@ class GameViewModel : ViewModel() {
         updateUserGuess("")
     }
 
-    init {
-        resetGame()
-    }
+
 }
